@@ -7,16 +7,33 @@
 //
 
 #import "AppDelegate.h"
-
-@interface AppDelegate ()
+#import "WXApi.h"
+@interface AppDelegate ()<WXApiDelegate>
 
 @end
 
 @implementation AppDelegate
 
-
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    if ([url.scheme isEqualToString:@"wxd930ea5d5a258f4f"]) {//微信
+        return [WXApi handleOpenURL:url delegate:self];
+    }else{
+        return YES;
+    }
+}
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    
+    if ([url.scheme isEqualToString:@"wxd930ea5d5a258f4f"]) {//微信
+        return [WXApi handleOpenURL:url delegate:self];
+    }else{
+        return YES;
+    }
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+
+    [WXApi registerApp:@"wxd930ea5d5a258f4f" withDescription:@"demo 2.0"];
+
+    
     return YES;
 }
 
